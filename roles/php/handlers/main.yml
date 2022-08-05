@@ -1,0 +1,6 @@
+---
+- name: restart php-fpm CentOS
+  service: name=php{{ php_ver | replace('.','') }}-php-fpm state=restarted enabled=yes
+
+- name: restart nginx
+  service: name=nginx state=restarted enabled=yes

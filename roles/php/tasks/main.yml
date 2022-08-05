@@ -1,0 +1,30 @@
+---
+- name: Instalar php{{ php_ver | replace('.','') }}
+  yum: 
+    name:
+      - php{{ php_ver | replace('.','') }}
+      - php{{ php_ver | replace('.','') }}-php-mcrypt
+      - php{{ php_ver | replace('.','') }}-php-mbstring
+      - php{{ php_ver | replace('.','') }}-php-fpm
+      - php{{ php_ver | replace('.','') }}-php-gd
+      - php{{ php_ver | replace('.','') }}-php-xml
+      - php{{ php_ver | replace('.','') }}-php-pdo
+      - php{{ php_ver | replace('.','') }}-php-zip 
+    enablerepo: "remi" 
+    state: present
+
+- name: Cambiar php.ini 
+  template:
+    src: php.ini
+    dest: /etc/opt/remi/php{{ php_ver | replace('.','') }}/php.ini
+
+- name: Cambiar php-fpm pool 
+  template:
+    src: www.conf
+    dest: /etc/opt/remi/php{{ php_ver | replace('.','') }}/php-fpm.d/www.conf
+
+- name: Asegurar que php{{ php_ver | replace('.','') }}-php-fpm esta corriendo
+  service: name=php{{ php_ver | replace('.','') }}-php-fpm state=started enabled=yes
+  notify:
+    - restart php-fpm CentOS
+    - restart nginx

@@ -1,0 +1,12 @@
+- name: Instalar MariaDB
+  yum:
+    name:
+      - mariadb-server
+      - mariadb
+    state: latest
+
+- name: Startea y habilita el servicio de MariaDB
+  service:
+    name: mariadb
+    enabled: yes
+    state: started

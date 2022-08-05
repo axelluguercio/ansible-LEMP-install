@@ -1,0 +1,12 @@
+---
+- name: basic conf
+  hosts: localhost
+
+  become: yes
+#  become_method: sudo
+
+  roles:
+  - common
+  - nginx
+  - php
+  - mysql

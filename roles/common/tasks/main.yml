@@ -1,0 +1,10 @@
+--- 
+- name: Hacer un add del repo remi
+  yum:
+    name: http://rpms.famillecollet.com/enterprise/remi-release-{{ ansible_distribution_major_version }}.rpm
+    state: present
+
+- name: Importar la GPG key
+  rpm_key:
+    key: http://rpms.remirepo.net/RPM-GPG-KEY-remi
+    state: present
